@@ -6,10 +6,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add post') }}</div>
+                    <div class="card-header">{{ __('Update post') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="/posts">
+                        <form method="POST" action="/posts/{{$post->post_id}}">
+                            @method('PUT')
                             @csrf
 
                             <div class="form-group row">
@@ -17,17 +18,17 @@
 
                                 <div class="col-md-6">
                                     <input
-                                        id="title"
-                                        type="text"
-                                        class="form-control
-                                        @error('title')
-                                        is-invalid
-                                        @enderror"
-                                        name="title"
-                                        value="{{ old('title') }}"
-                                        required
-                                        autocomplete="title"
-                                        autofocus
+                                            id="title"
+                                            type="text"
+                                            class="form-control
+                                            @error('title')
+                                            is-invalid
+                                            @enderror"
+                                            name="title"
+                                            value="{{ $post->title }}"
+                                            required
+                                            autocomplete="title"
+                                            autofocus
                                     >
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -42,16 +43,16 @@
 
                                 <div class="col-md-6">
                                     <input
-                                        id="subtitle"
-                                        type="text"
-                                        class="form-control
+                                            id="subtitle"
+                                            type="text"
+                                            class="form-control
                                         @error('subtitle')
                                         is-invalid
                                         @enderror"
-                                        name="subtitle"
-                                        value="{{ old('subtitle') }}"
-                                        autocomplete="subtitle"
-                                        autofocus>
+                                            name="subtitle"
+                                            value="{{ $post->subtitle }}"
+                                            autocomplete="subtitle"
+                                            autofocus>
                                     @error('subtitle')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -65,14 +66,15 @@
 
                                 <div class="col-md-6">
                                     <textarea
-                                        id="body"
-                                        class="form-control @error('body')
-                                        is-invalid @enderror"
-                                        name="body"
-                                        required
-                                        autocomplete="body"
-                                        rows="10"
-                                    >{{ old('body') }}
+                                            id="body"
+                                            class="form-control @error('body')
+                                            is-invalid @enderror"
+                                            name="body"
+                                            required
+                                            autocomplete="body"
+                                            rows="10"
+                                    >
+                                        {{$post->body}}
                                     </textarea>
 
                                     @error('body')
@@ -88,16 +90,16 @@
 
                                 <div class="col-md-6">
                                     <input
-                                        id="picture_url"
-                                        type="text"
-                                        class="form-control
+                                            id="picture_url"
+                                            type="text"
+                                            class="form-control
                                         @error('picture_url')
                                         is-invalid
                                         @enderror"
-                                        name="picture_url"
-                                        value="{{ old('picture_url') }}"
-                                        autocomplete="picture_url"
-                                        autofocus
+                                            name="picture_url"
+                                            value="{{ $post->picture_url }}"
+                                            autocomplete="picture_url"
+                                            autofocus
                                     >
                                     @error('picture_url')
                                     <span class="invalid-feedback" role="alert">
@@ -112,16 +114,16 @@
 
                                 <div class="col-md-6">
                                     <input
-                                        id="description"
-                                        type="text"
-                                        class="form-control
+                                            id="description"
+                                            type="text"
+                                            class="form-control
                                         @error('description')
                                         is-invalid
                                         @enderror"
-                                        name="description"
-                                        value="{{ old('description') }}"
-                                        autocomplete="description"
-                                        autofocus
+                                            name="description"
+                                            value="{{ $post->picture_description }}"
+                                            autocomplete="description"
+                                            autofocus
                                     >
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -133,7 +135,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Save') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>

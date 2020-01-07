@@ -40,6 +40,10 @@ class PostController extends Controller
             'body' => 'required|min:10'
         ]);
 
+        if (!auth()->id()) {
+            return redirect('/login');
+        }
+
         $post = new Post();
         $post->post_user_id = auth()->id();
         $post->title = $request->input('title');
@@ -50,7 +54,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return view('posts/create');
+        return redirect('/posts/' . $post->post_id);
     }
 
     /**
@@ -72,7 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('/posts/edit', ['post' => $post]);
     }
 
     /**
@@ -84,7 +88,25 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:3',
+            'body' => 'required|min:10'
+        ]);
+
+        if (!auth()->id()) {
+            return redirect('/');
+        }
+
+        $post->post_user_id = auth()->id();
+        $post->title = $request->title;
+        $post->subtitle = $request->subtitle ?? '';
+        $post->body = $request->body;
+        $post->picture_url = $request->picture_url ?? '';
+        $post->picture_description = $request->description ?? '';
+
+        $post->save();
+
+        return redirect('/posts/' . $post->post_id);
     }
 
     /**
