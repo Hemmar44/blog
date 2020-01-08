@@ -8,6 +8,8 @@ class Post extends Model
 {
     protected $primaryKey = 'post_id';
 
+    protected $guarded = [];
+
     /**
      * Get the user that owns the post.
      */

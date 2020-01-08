@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return view('/posts/index', ['posts' => Post::all()]);
     }
 
     /**
@@ -44,17 +44,25 @@ class PostController extends Controller
             return redirect('/login');
         }
 
-        $post = new Post();
-        $post->post_user_id = auth()->id();
-        $post->title = $request->input('title');
-        $post->subtitle = $request->input('subtitle', '');
-        $post->body = $request->input('body');
-        $post->picture_url = $request->input('picture_url', '');
-        $post->picture_description = $request->input('description', '');
+        Post::create([
+            'post_user_id' => auth()->id(),
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'body' => $request->body,
+            'picture_url' => $request->picture_url,
+            'picture_description' => $request->description
+        ]);
+//        $post = new Post();
+//        $post->post_user_id = auth()->id();
+//        $post->title = $request->input('title');
+//        $post->subtitle = $request->input('subtitle', '');
+//        $post->body = $request->input('body');
+//        $post->picture_url = $request->input('picture_url', '');
+//        $post->picture_description = $request->input('description', '');
+//
+//        $post->save();
 
-        $post->save();
-
-        return redirect('/posts/' . $post->post_id);
+        return redirect('/posts/');
     }
 
     /**
