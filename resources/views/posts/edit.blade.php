@@ -137,6 +137,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update') }}
                                     </button>
+                                    <delete-button-component :post="{{$post}}"></delete-button-component>
                                 </div>
                             </div>
                         </form>

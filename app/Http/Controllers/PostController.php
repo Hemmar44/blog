@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -24,6 +25,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (!auth()->id()) {
+            return redirect('/login');
+        }
+
         return view('/posts/create');
     }
 
@@ -52,15 +57,6 @@ class PostController extends Controller
             'picture_url' => $request->picture_url,
             'picture_description' => $request->description
         ]);
-//        $post = new Post();
-//        $post->post_user_id = auth()->id();
-//        $post->title = $request->input('title');
-//        $post->subtitle = $request->input('subtitle', '');
-//        $post->body = $request->input('body');
-//        $post->picture_url = $request->input('picture_url', '');
-//        $post->picture_description = $request->input('description', '');
-//
-//        $post->save();
 
         return redirect('/posts/');
     }
@@ -73,7 +69,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('/posts/post', ['post' => $post]);
+        return view('/posts/post', ['post' => $post, 'is_logged' => !auth()->guest()]);
     }
 
     /**

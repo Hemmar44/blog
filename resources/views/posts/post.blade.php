@@ -8,7 +8,13 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-            <h1>{{$post->title}}</h1>
+            @if ($is_logged)
+              <a href="/posts/{{$post->post_id}}/edit">
+                <h1>{{$post->title}}</h1>
+              </a>
+            @else
+              <h1>{{$post->title}}</h1>
+            @endif
             <h2 class="subheading">{{$post->subtitle}}</h2>
             <span class="meta">Posted by
               <a href="/about">{{$post->user->name}}</a>
