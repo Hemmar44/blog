@@ -5,13 +5,23 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         name: "DeleteButtonComponent",
         props: ['post'],
         methods: {
             deletePost() {
-                console.log(this.post);
-                return;
+                const success = (response) => {
+                   window.location.href = '/posts'
+                };
+
+                const failure = (response) => {
+                    console.log('failure', response)
+                };
+
+                if (confirm('Are you sure?')) {
+                    axios.delete('/posts/' + this.post.post_id).then(success, failure)
+                }
             }
         }
     }

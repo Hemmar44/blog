@@ -121,6 +121,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        try {
+            $post->delete();
+            return response([], 200);
+        } catch (\Exception $exception) {
+            return response([], 405);
+        }
     }
 }

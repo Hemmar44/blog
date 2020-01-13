@@ -1871,19 +1871,31 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DeleteButtonComponent",
   props: ['post'],
   methods: {
     deletePost: function deletePost() {
-      console.log(this.post);
-      return;
+      var success = function success(response) {
+        window.location.href = '/posts';
+      };
+
+      var failure = function failure(response) {
+        console.log('failure', response);
+      };
+
+      if (confirm('Are you sure?')) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/posts/' + this.post.post_id).then(success, failure);
+      }
     }
   }
 });
