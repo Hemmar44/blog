@@ -23,7 +23,8 @@
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<div>
+    <div id="app">
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
@@ -40,19 +41,24 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>
+                    @if ($is_logged)
                     <li class="nav-item">
-                        <a class="nav-link" href="/post">Sample Post</a>
+                        <a class="nav-link" href="/posts/create">Create</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
+                    @if ($is_logged)
+                        <logout-component></logout-component>
+                    @endif
                 </ul>
             </div>
         </div>
     </nav>
 
 
-        <main id="app">
+        <main>
             @yield('content')
         </main>
     </div>
@@ -92,6 +98,7 @@
             </div>
         </div>
     </footer>
+    </div>
 
     <!-- Custom scripts for this template -->
     <script src="{{ asset('js/clean-blog.min.js') }}" defer></script>

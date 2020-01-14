@@ -11,11 +11,12 @@
         props: ['post'],
         methods: {
             deletePost() {
-                const success = (response) => {
+                const success = () => {
                    window.location.href = '/posts'
                 };
 
                 const failure = (response) => {
+                    //TODO:errors
                     console.log('failure', response)
                 };
 

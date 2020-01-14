@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('delete-button-component', require('./components/buttons/DeleteButtonComponent.vue').default);
+Vue.component('logout-component', require('./components/LogoutComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
