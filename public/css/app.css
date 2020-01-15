@@ -11539,3 +11539,11 @@ footer .copyright {
   padding: 25px 35px;
 }
 
+.align-text-center {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
