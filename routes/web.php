@@ -12,14 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('posts');
 });
 
 Auth::routes();
-
-Route::get('/', function () {
-    return view('index');
-} );
 
 Route::get('/about', function () {
     return view('about');

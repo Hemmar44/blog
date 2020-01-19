@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('img/home-bg.jpg')">
     <div class="overlay"></div>
@@ -9,8 +8,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>Clean Blog</h1>
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+            <h1>Blog Hemmara</h1>
+            <span class="subheading">Walka o lepszą sylwetkę</span>
           </div>
         </div>
       </div>
@@ -39,7 +38,9 @@
         @endforeach
         <!-- Pager -->
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+          <div class="float-right">
+            {{ $posts->links() }}
+          </div>
         </div>
       </div>
     </div>
