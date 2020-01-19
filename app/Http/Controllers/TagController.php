@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class TagController extends Controller
 {
-    //
+    public function create()
+    {
+        if (!auth()->id()) {
+            return redirect('/login');
+        }
+        return view('/tags/create');
+    }
 }
