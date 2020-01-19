@@ -26,3 +26,4 @@ Route::get('/contact', function () {
 });
 
 Route::resource('posts', 'PostController');
+Route::get('posts/tag/{tag}', 'PostController@showByTag');

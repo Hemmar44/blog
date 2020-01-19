@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -127,5 +128,10 @@ class PostController extends Controller
         } catch (\Exception $exception) {
             return response([], 405);
         }
+    }
+
+    public function showByTag(Tag $tag)
+    {
+        return view('/posts/index', ['posts' => $tag->posts()->paginate(5), 'tag' => $tag]);
     }
 }
