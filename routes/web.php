@@ -25,11 +25,14 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+
+Route::resource('/posts', 'PostController');
+
 Route::prefix('posts')->group(function (){
-    Route::resource('', 'PostController');
     Route::get('tag/{tag}', 'PostController@showByTag');
 });
 
 Route::prefix('tags')->group(function () {
     Route::get('create', 'TagController@create');
+    Route::post('/', 'TagController@store');
 });

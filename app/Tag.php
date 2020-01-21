@@ -8,6 +8,8 @@ class Tag extends Model
 {
     protected $primaryKey = 'tag_id';
 
+    protected $guarded = [];
+
     public function posts()
     {
         return $this->belongsToMany(

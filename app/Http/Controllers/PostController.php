@@ -17,7 +17,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('/posts/index', ['posts' => Post::paginate(5)]);
+        return view(
+            '/posts/index',
+            [
+                'posts' => Post::orderByDesc('created_at')->paginate(5)
+            ]);
     }
 
     /**
@@ -71,7 +75,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('/posts/post', ['post' => $post, 'is_logged' => !auth()->guest()]);
+        return view(
+            '/posts/post',
+            [
+                'post' => $post,
+                'is_logged' => !auth()->guest()
+            ]
+        );
     }
 
     /**
@@ -133,6 +143,12 @@ class PostController extends Controller
 
     public function showByTag(Tag $tag)
     {
-        return view('/posts/index', ['posts' => $tag->posts()->paginate(5), 'tag' => $tag]);
+        return view(
+            '/posts/index',
+            [
+                'posts' => $tag->posts()->orderByDesc('created_at')->paginate(5),
+                'tag' => $tag
+            ]
+        );
     }
 }

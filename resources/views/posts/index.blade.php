@@ -28,10 +28,10 @@
         @foreach($posts as $post)
         <div class="post-preview">
             <h2 class="post-title">
-              {{$post->title}}
+              <a href="/posts/{{$post->post_id}}">{{$post->title}}</a>
             </h2>
             <h3 class="post-subtitle">
-              {{$post->subtitle}}
+              <a href="/posts/{{$post->post_id}}">{{$post->subtitle}}</a>
             </h3>
           </a>
           <p class="post-meta">Tagi <br>

@@ -1838,6 +1838,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1871,8 +1873,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AddTagComponent"
+  name: "AddTagComponent",
+  data: function data() {
+    return {
+      tag: ''
+    };
+  },
+  methods: {
+    addTag: function addTag() {
+      console.log(this.tag);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/tags', {
+        name: this.tag
+      }).then(function (response) {
+        console.log('succes', response);
+      }, function (response) {
+        console.log('failure', response);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -37933,57 +37953,82 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card-body" }, [
+    _c("form", [
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "title" }
+          },
+          [_vm._v("Name *")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.tag,
+                expression: "tag"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "title",
+              type: "text",
+              name: "title",
+              required: "",
+              autocomplete: "title",
+              autofocus: ""
+            },
+            domProps: { value: _vm.tag },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.tag = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row mb-0" }, [
+        _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.addTag()
+                }
+              }
+            },
+            [_vm._v("\n                    Save\n                ")]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-group row" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-4 col-form-label text-md-right",
-              attrs: { for: "title" }
-            },
-            [_vm._v("Name *")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                id: "title",
-                type: "text",
-                name: "title",
-                required: "",
-                autocomplete: "title",
-                autofocus: ""
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-              [_c("strong")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group row mb-0" }, [
-          _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("\n                    Save\n                ")]
-            )
-          ])
-        ])
-      ])
-    ])
+    return _c(
+      "span",
+      { staticClass: "invalid-feedback", attrs: { role: "alert" } },
+      [_c("strong")]
+    )
   }
 ]
 render._withStripped = true

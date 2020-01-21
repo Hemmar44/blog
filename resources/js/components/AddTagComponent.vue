@@ -6,6 +6,7 @@
 
                 <div class="col-md-6">
                     <input
+                            v-model="tag"
                             id="title"
                             type="text"
                             class="form-control"
@@ -22,7 +23,7 @@
             </div>
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button @click.prevent="addTag()" class="btn btn-primary">
                         Save
                     </button>
                 </div>
@@ -30,10 +31,25 @@
         </form>
     </div>
 </template>
-
 <script>
+    import axios from 'axios'
     export default {
-        name: "AddTagComponent"
+        name: "AddTagComponent",
+        data() {
+          return {
+              tag: ''
+          }
+        },
+        methods: {
+            addTag() {
+                console.log(this.tag);
+                axios.post('/tags', {name: this.tag}).then((response) => {
+                    console.log('succes',response)
+                }, (response) => {
+                    console.log('failure', response)
+                }
+            )}
+        }
     }
 </script>
 
