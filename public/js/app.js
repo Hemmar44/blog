@@ -1878,18 +1878,27 @@ __webpack_require__.r(__webpack_exports__);
   name: "AddTagComponent",
   data: function data() {
     return {
-      tag: ''
+      name: '',
+      errors: {}
     };
+  },
+  computed: {
+    validationErrors: function validationErrors() {
+      var errors = Object.values(this.errors);
+      errors = errors.flat();
+      return errors;
+    }
   },
   methods: {
     addTag: function addTag() {
-      console.log(this.tag);
+      var _this = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/tags', {
         name: this.tag
       }).then(function (response) {
         console.log('succes', response);
-      }, function (response) {
-        console.log('failure', response);
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
       });
     }
   }
@@ -37971,8 +37980,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.tag,
-                expression: "tag"
+                value: _vm.name,
+                expression: "name"
               }
             ],
             staticClass: "form-control",
@@ -37984,17 +37993,21 @@ var render = function() {
               autocomplete: "title",
               autofocus: ""
             },
-            domProps: { value: _vm.tag },
+            domProps: { value: _vm.name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.tag = $event.target.value
+                _vm.name = $event.target.value
               }
             }
           }),
-          _vm._v(" "),
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.validationErrors) +
+              "\n                "
+          ),
           _vm._m(0)
         ])
       ]),

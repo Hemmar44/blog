@@ -46,14 +46,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->id()) {
+            return redirect('/login');
+        }
+
         $request->validate([
             'title' => 'required|min:3',
             'body' => 'required|min:10'
         ]);
-
-        if (!auth()->id()) {
-            return redirect('/login');
-        }
 
         Post::create([
             'post_user_id' => auth()->id(),

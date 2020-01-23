@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tag;
 
 class TagController extends Controller
 {
@@ -16,8 +17,20 @@ class TagController extends Controller
 
     public function store(Request $request)
     {
-        return $request->validate([
-            'name' => 'required|min:3',
-        ]);
+        if (!auth()->id()) {
+            return redirect('/login');
+        }
+
+        $request->validate(
+            [
+                'name' => 'required|min:3'
+            ]
+        );
+
+        Tag::create($request->validate(
+            [
+                'name' => 'required|min:3'
+            ]
+        ));
     }
 }

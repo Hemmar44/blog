@@ -3,10 +3,9 @@
         <form>
             <div class="form-group row">
                 <label for="title" class="col-md-4 col-form-label text-md-right">Name *</label>
-
                 <div class="col-md-6">
                     <input
-                            v-model="tag"
+                            v-model="name"
                             id="title"
                             type="text"
                             class="form-control"
@@ -15,6 +14,7 @@
                             autocomplete="title"
                             autofocus
                     >
+                    {{validationErrors}}
                     <span class="invalid-feedback" role="alert">
                         <strong></strong>
                     </span>
@@ -37,18 +37,26 @@
         name: "AddTagComponent",
         data() {
           return {
-              tag: ''
+              name: '',
+              errors: {}
           }
+        },
+        computed: {
+            validationErrors(){
+                let errors = Object.values(this.errors);
+                errors = errors.flat();
+                return errors;
+            }
         },
         methods: {
             addTag() {
-                console.log(this.tag);
-                axios.post('/tags', {name: this.tag}).then((response) => {
-                    console.log('succes',response)
-                }, (response) => {
-                    console.log('failure', response)
-                }
-            )}
+                axios.post('/tags', {name: this.tag}).then(
+                    (response) => {
+                        console.log('succes', response)
+                    }).catch(error => {
+                        this.errors = error.response.data.errors;
+                });
+            }
         }
     }
 </script>
