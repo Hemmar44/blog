@@ -1840,6 +1840,18 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -1879,13 +1891,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       name: '',
-      errors: {}
+      errors: {},
+      message: ''
     };
   },
   computed: {
     validationErrors: function validationErrors() {
-      var errors = Object.values(this.errors);
-      errors = errors.flat();
+      var errors = {};
+      Object.entries(this.errors).forEach(function (errorSet) {
+        console.log(errorSet);
+        var name, error;
+
+        var _errorSet = _slicedToArray(errorSet, 2);
+
+        name = _errorSet[0];
+        error = _errorSet[1];
+        errors[name] = error[0];
+      });
       return errors;
     }
   },
@@ -1894,10 +1916,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/tags', {
-        name: this.tag
-      }).then(function (response) {
-        console.log('succes', response);
+        name: this.name
+      }).then(function () {
+        _this.errors = {};
+        _this.message = 'Tag successfully added';
       })["catch"](function (error) {
+        _this.message = '';
         _this.errors = error.response.data.errors;
       });
     }
@@ -37975,6 +37999,18 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
+          _vm.message
+            ? _c("div", { staticClass: "alert alert-success" }, [
+                _c("span", [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.message) +
+                      "\n                    "
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("input", {
             directives: [
               {
@@ -37985,6 +38021,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            class: {
+              "is-invalid": _vm.validationErrors.name,
+              "is-valid": _vm.message
+            },
             attrs: {
               id: "title",
               type: "text",
@@ -38003,12 +38043,14 @@ var render = function() {
               }
             }
           }),
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.validationErrors) +
-              "\n                "
-          ),
-          _vm._m(0)
+          _vm._v(" "),
+          _vm.validationErrors.name
+            ? _c(
+                "span",
+                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
+                [_c("strong", [_vm._v(_vm._s(_vm.validationErrors.name))])]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -38032,18 +38074,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-      [_c("strong")]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -4,21 +4,25 @@
             <div class="form-group row">
                 <label for="title" class="col-md-4 col-form-label text-md-right">Name *</label>
                 <div class="col-md-6">
+                    <div v-if="message" class="alert alert-success">
+                        <span>
+                            {{message}}
+                        </span>
+                    </div>
                     <input
                             v-model="name"
                             id="title"
                             type="text"
                             class="form-control"
+                            :class="{'is-invalid': validationErrors.name, 'is-valid': message}"
                             name="title"
                             required
                             autocomplete="title"
                             autofocus
                     >
-                    {{validationErrors}}
-                    <span class="invalid-feedback" role="alert">
-                        <strong></strong>
+                    <span v-if="validationErrors.name" class="invalid-feedback" role="alert">
+                        <strong>{{validationErrors.name}}</strong>
                     </span>
-
                 </div>
             </div>
             <div class="form-group row mb-0">
@@ -38,22 +42,30 @@
         data() {
           return {
               name: '',
-              errors: {}
+              errors: {},
+              message: ''
           }
         },
         computed: {
             validationErrors(){
-                let errors = Object.values(this.errors);
-                errors = errors.flat();
+                let errors = {};
+                Object.entries(this.errors).forEach(errorSet => {
+                    console.log(errorSet);
+                    let name, error;
+                    [name, error] = errorSet;
+                    errors[name] = error[0];
+                });
                 return errors;
             }
         },
         methods: {
             addTag() {
-                axios.post('/tags', {name: this.tag}).then(
-                    (response) => {
-                        console.log('succes', response)
+                axios.post('/tags', {name: this.name}).then(
+                    () => {
+                        this.errors = {};
+                        this.message = 'Tag successfully added';
                     }).catch(error => {
+                        this.message = '';
                         this.errors = error.response.data.errors;
                 });
             }
