@@ -87,12 +87,26 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
+     * @param Tag $tags
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Post $post, Tag $tags)
     {
-        return view('/posts/edit', ['post' => $post]);
+        $tagIds = [];
+
+        foreach ($post->tags as $tag) {
+            $tagIds[] = $tag->tag_id;
+        }
+
+        return view(
+            '/posts/edit',
+            [
+                'post' => $post,
+                'tags' => Tag::all(),
+                'post_tag_ids' => $tagIds
+            ]
+        );
     }
 
     /**
@@ -104,6 +118,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
         $request->validate([
             'title' => 'required|min:3',
             'body' => 'required|min:10'
@@ -119,8 +134,11 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->picture_url = $request->picture_url ?? '';
         $post->picture_description = $request->description ?? '';
-
         $post->save();
+
+        if (!empty($request->tags)) {
+            $post->tags()->sync($request->tags);
+        }
 
         return redirect('/posts/' . $post->post_id);
     }

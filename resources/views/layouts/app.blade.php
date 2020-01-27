@@ -42,9 +42,12 @@
                         <a class="nav-link" href="/about">About</a>
                     </li>
                     @if ($is_logged)
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts/create">Create</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posts/create">Create post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tags/create">Create tag</a>
+                        </li>
                     @endif
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>

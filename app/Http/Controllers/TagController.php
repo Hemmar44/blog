@@ -23,7 +23,7 @@ class TagController extends Controller
 
         $request->validate(
             [
-                'name' => 'required|unique:tags|min:3',
+                'name' => 'required|unique:tags|min:2',
             ]
         );
 
