@@ -23,6 +23,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('delete-button-component', require('./components/buttons/DeleteButtonComponent.vue').default);
 Vue.component('logout-component', require('./components/LogoutComponent.vue').default);
 Vue.component('add-tag-component', require('./components/AddTagComponent.vue').default);
+Vue.component('gallery-component', require('./components/GalleryComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

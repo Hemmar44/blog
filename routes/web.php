@@ -36,3 +36,5 @@ Route::prefix('tags')->group(function () {
     Route::get('create', 'TagController@create');
     Route::post('/', 'TagController@store');
 });
+
+Route::get('/gallery', 'GalleryController@show');

@@ -41,6 +41,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery">Gallery</a>
+                    </li>
                     @if ($is_logged)
                         <li class="nav-item">
                             <a class="nav-link" href="/posts/create">Create post</a>
