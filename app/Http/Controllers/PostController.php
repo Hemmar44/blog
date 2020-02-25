@@ -166,6 +166,9 @@ class PostController extends Controller
 
     public function showByTag(Tag $tag)
     {
+        $tag->popularity = $tag->popularity + 1;
+        $tag->save();
+
         return view(
             '/posts/index',
             [
