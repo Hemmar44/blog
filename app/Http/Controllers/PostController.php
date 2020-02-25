@@ -63,7 +63,7 @@ class PostController extends Controller
             'picture_url' => $request->picture_url,
             'picture_description' => $request->description,
         ]);
-        
+
 
         if (!empty($request->tags)) {
             $post->tags()->sync($request->tags);

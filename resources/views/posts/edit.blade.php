@@ -131,26 +131,24 @@
                                     </span>
                                     @enderror
                                 </div>
-
-                                <div class="form-group row">
-                                    <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tag') }}</label>
-
-                                    <div class="col-md-6">
-                                        <select multiple="multiple"
-                                                id="tags"
-                                                type="text"
-                                                class="form-control"
-                                                name="tags[]"
-                                        >
-                                            @foreach($tags as $tag):
-                                                <option
-                                                        @if (in_array($tag->tag_id, $post_tag_ids))
-                                                        selected="selected"
-                                                        @endif
-                                                        value="{{$tag->tag_id}}">{{$tag->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tag') }}</label>
+                                <div class="col-md-6">
+                                    <select multiple="multiple"
+                                            id="tags"
+                                            type="text"
+                                            class="form-control"
+                                            name="tags[]"
+                                    >
+                                        @foreach($tags as $tag):
+                                        <option
+                                                @if (in_array($tag->tag_id, $post_tag_ids))
+                                                selected="selected"
+                                                @endif
+                                                value="{{$tag->tag_id}}">{{$tag->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
