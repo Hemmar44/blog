@@ -35,7 +35,7 @@ class PostController extends Controller
             return redirect('/login');
         }
 
-        return view('/posts/create');
+        return view('/posts/create', ['tags' => Tag::all()]);
     }
 
     /**
@@ -55,14 +55,19 @@ class PostController extends Controller
             'body' => 'required|min:10'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'post_user_id' => auth()->id(),
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'body' => $request->body,
             'picture_url' => $request->picture_url,
-            'picture_description' => $request->description
+            'picture_description' => $request->description,
         ]);
+        
+
+        if (!empty($request->tags)) {
+            $post->tags()->sync($request->tags);
+        }
 
         return redirect('/posts/');
     }
