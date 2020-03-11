@@ -10,6 +10,11 @@ use App\Tag;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('create', 'store', 'update', 'destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,10 +36,6 @@ class PostController extends Controller
      */
     public function create()
     {
-        if (!auth()->id()) {
-            return redirect('/login');
-        }
-
         return view('/posts/create', ['tags' => Tag::all()]);
     }
 
@@ -46,10 +47,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->id()) {
-            return redirect('/login');
-        }
-
         $request->validate([
             'title' => 'required|min:3',
             'body' => 'required|min:10'
@@ -128,10 +125,6 @@ class PostController extends Controller
             'title' => 'required|min:3',
             'body' => 'required|min:10'
         ]);
-
-        if (!auth()->id()) {
-            return redirect('/');
-        }
 
         $post->post_user_id = auth()->id();
         $post->title = $request->title;

@@ -7,20 +7,18 @@ use App\Tag;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
-        if (!auth()->id()) {
-            return redirect('/login');
-        }
         return view('/tags/create');
     }
 
     public function store(Request $request)
     {
-        if (!auth()->id()) {
-            return redirect('/login');
-        }
-
         $request->validate(
             [
                 'name' => 'required|unique:tags|min:2',
